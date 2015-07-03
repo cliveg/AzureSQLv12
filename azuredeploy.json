@@ -38,7 +38,7 @@
       "type": "string"
     },
     "SQLServer12Location": {
-      "defaultValue": "west us",
+      "defaultValue": "East US",
       "type": "string"
     },
     "SQLServer12AdminLogin": {
