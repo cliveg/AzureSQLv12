@@ -70,7 +70,6 @@
       "type": "Microsoft.Sql/servers",
       "location": "[parameters('serverLocation')]",
       "apiVersion": "2.0",
-      "kind":  "v12.0",
       "properties": {
         "administratorLogin": "[parameters('administratorLogin')]",
         "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
@@ -82,7 +81,6 @@
           "type": "databases",
           "location": "[parameters('serverLocation')]",
           "apiVersion": "2.0",
-          "kind": "v12.0,user",
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
           ],
