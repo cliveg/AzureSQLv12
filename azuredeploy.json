@@ -16,13 +16,15 @@
             }
         },
         "administratorLogin": {
-            "type": "string",
+          "type": "string",
+          "defaultValue": "AzAdmin",
             "metadata": {
                 "description": "The account name to use for the database server administrator."
             }
         },
         "administratorLoginPassword": {
-            "type": "securestring",
+          "type": "securestring",
+          "defaultValue": "AzP@ssword1",
             "metadata": {
                 "description": "The password to use for the database server administrator."
             }
