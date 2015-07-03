@@ -41,6 +41,10 @@
       "defaultValue": "East US",
       "type": "string"
     },
+    "version": {
+      "defaultValue": "12.0",
+      "type": "string"
+    },
     "SQLServer12AdminLogin": {
       "defaultValue": "AzAdmin",
       "type": "string"
