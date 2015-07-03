@@ -44,7 +44,7 @@
         },
         "edition": {
             "type": "string",
-            "defaultValue": "Web",
+            "defaultValue": "Standard",
             "metadata": {
                 "description": "The type of database to create."
             }
@@ -58,7 +58,7 @@
         },
         "requestedServiceObjectiveId": {
             "type": "string",
-            "defaultValue": "910b4fcb-8a29-4c3e-958f-f7ba794388b2",
+            "defaultValue": "f1173c43-91bd-4aaa-973c-54e79e15235b",
             "metadata": {
                 "description": "The GUID corresponding to the performance level for edition."
             }
@@ -70,9 +70,11 @@
       "type": "Microsoft.Sql/servers",
       "location": "[parameters('serverLocation')]",
       "apiVersion": "2.0",
+      "kind":  "v12.0",
       "properties": {
         "administratorLogin": "[parameters('administratorLogin')]",
         "administratorLoginPassword": "[parameters('administratorLoginPassword')]"
+        "version": "12.0"
       },
       "resources": [
         {
@@ -80,6 +82,7 @@
           "type": "databases",
           "location": "[parameters('serverLocation')]",
           "apiVersion": "2.0",
+          "kind": "v12.0,user",
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
           ],
