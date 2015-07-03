@@ -1,109 +1,54 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-
-        "serverName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the new database server to create."
-            }
-        },
-        "serverLocation": {
-            "type": "string",
-            "metadata": {
-                "description": "The location of the database server. For best performance, this location should be the same as the location of the web app."
-            }
-        },
-        "administratorLogin": {
-          "type": "string",
-          "defaultValue": "AzAdmin",
-            "metadata": {
-                "description": "The account name to use for the database server administrator."
-            }
-        },
-        "administratorLoginPassword": {
-          "type": "securestring",
-          "defaultValue": "AzP@ssword1",
-            "metadata": {
-                "description": "The password to use for the database server administrator."
-            }
-        },
-        "databaseName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the new database to create."
-            }
-        },
-        "collation": {
-            "type": "string",
-            "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
-            "metadata": {
-                "description": "The database collation for governing the proper use of characters."
-            }
-        },
-        "edition": {
-            "type": "string",
-            "defaultValue": "Web",
-            "metadata": {
-                "description": "The type of database to create."
-            }
-        },
-        "maxSizeBytes": {
-            "type": "string",
-            "defaultValue": "1073741824",
-            "metadata": {
-                "description": "The maximum size, in bytes, for the database"
-            }
-        },
-        "requestedServiceObjectiveId": {
-            "type": "string",
-            "defaultValue": "910b4fcb-8a29-4c3e-958f-f7ba794388b2",
-            "metadata": {
-                "description": "The GUID corresponding to the performance level for edition."
-            }
-        }
-    },
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
   "resources": [
     {
-      "name": "[parameters('serverName')]",
+      "name": "[parameters('SQLServer12Name')]",
       "type": "Microsoft.Sql/servers",
-      "location": "[parameters('serverLocation')]",
-      "apiVersion": "2.0",
+      "location": "[parameters('SQLServer12Location')]",
+      "apiVersion": "2014-04-01-preview",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "SQLServer12"
+      },
       "properties": {
-        "administratorLogin": "[parameters('administratorLogin')]",
-        "administratorLoginPassword": "[parameters('administratorLoginPassword')]"
+        "administratorLogin": "[parameters('SQLServer12AdminLogin')]",
+        "administratorLoginPassword": "[parameters('SQLServer12AdminLoginPassword')]"
       },
       "resources": [
         {
-          "name": "[parameters('databaseName')]",
-          "type": "databases",
-          "location": "[parameters('serverLocation')]",
-          "apiVersion": "2.0",
-          "dependsOn": [
-            "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
-          ],
-          "properties": {
-            "edition": "[parameters('edition')]",
-            "collation": "[parameters('collation')]",
-            "maxSizeBytes": "[parameters('maxSizeBytes')]",
-            "requestedServiceObjectiveId": "[parameters('requestedServiceObjectiveId')]"
-          }
-        },
-        {
-          "apiVersion": "2.0",
-          "dependsOn": [
-            "[concat('Microsoft.Sql/servers/', parameters('serverName'))]"
-          ],
-          "location": "[parameters('serverLocation')]",
           "name": "AllowAllWindowsAzureIps",
+          "type": "firewallrules",
+          "location": "[parameters('SQLServer12Location')]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', parameters('SQLServer12Name'))]"
+          ],
           "properties": {
-            "endIpAddress": "0.0.0.0",
-            "startIpAddress": "0.0.0.0"
-          },
-          "type": "firewallrules"
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
         }
       ]
     }
-  ]
+  ],
+  "parameters": {
+    "SQLServer12Name": {
+      "defaultValue": "sqlserver12",
+      "type": "string"
+    },
+    "SQLServer12Location": {
+      "defaultValue": "west us",
+      "type": "string"
+    },
+    "SQLServer12AdminLogin": {
+      "defaultValue": "AzAdmin",
+      "type": "string"
+    },
+    "SQLServer12AdminLoginPassword": {
+      "defaultValue": "AzP@ssword1",
+      "type": "securestring"
+    }
+  }
+
 }
