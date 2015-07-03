@@ -13,7 +13,8 @@
       },
       "properties": {
         "administratorLogin": "[parameters('SQLServer12AdminLogin')]",
-        "administratorLoginPassword": "[parameters('SQLServer12AdminLoginPassword')]"
+        "administratorLoginPassword": "[parameters('SQLServer12AdminLoginPassword')]",
+        "version": "12.0"
       },
       "resources": [
         {
